@@ -8,10 +8,10 @@ import { PlatformDetectorService } from '../../core/plataform-detector/platform-
     templateUrl: './signin.component.html'
 })
 export class SignInComponent implements OnInit {
-    
+
     loginForm: FormGroup;
     @ViewChild('userNameInput') userNameInput: ElementRef<HTMLInputElement>;
-    
+
     constructor(
         private formBuilder: FormBuilder,
         private authService: AuthService,
@@ -23,7 +23,9 @@ export class SignInComponent implements OnInit {
             userName: ['', Validators.required],
             password: ['', Validators.required]
         });
-    } 
+        this.platformDetectorService.isPlatformBrowser() &&
+        this.userNameInput.nativeElement.focus();
+    }
 
     login() {
         const userName = this.loginForm.get('userName').value;
@@ -36,7 +38,7 @@ export class SignInComponent implements OnInit {
                 err => {
                     console.log(err);
                     this.loginForm.reset();
-                    this.platformDetectorService.isPlatformBrowser() && 
+                    this.platformDetectorService.isPlatformBrowser() &&
                         this.userNameInput.nativeElement.focus();
                     alert('Invalid user name or password');
                 }
