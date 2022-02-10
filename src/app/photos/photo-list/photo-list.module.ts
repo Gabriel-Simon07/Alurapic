@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -18,11 +19,12 @@ import { DarkenOnHoverModule } from '../../shared/directives/darken-on-hover/dar
         FilterByDescription,
         SearchComponent
     ],
-    imports: [ 
+    imports: [
         CommonModule,
         PhotoModule,
-        CardModule, 
-        DarkenOnHoverModule
+        CardModule,
+        DarkenOnHoverModule,
+        RouterModule,
     ]
 })
 export class PhotoListModule {}
