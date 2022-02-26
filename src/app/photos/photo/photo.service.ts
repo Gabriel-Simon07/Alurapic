@@ -5,8 +5,9 @@ import { Injectable } from '@angular/core';
 import { Photo } from "./photo";
 import { catchError, map } from 'rxjs/operators';
 import { of, throwError } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
-const API = 'http://localhost:3000';
+const API = environment.ApiUrl;
 
 @Injectable({ providedIn: 'root' })
 export class PhotoService {
@@ -54,7 +55,7 @@ export class PhotoService {
     }
 
     like(photoId: number) {
-      return this.http.post(API + '/photos' + photoId + '/like', {}, {observe: 'response'}
+      return this.http.post(API + '/photos/' + photoId + '/like', {}, {observe: 'response'}
       ).pipe(map(response => true))
       .pipe(catchError(err => {
         return err.status == '304' ? of(false) : throwError(err);
