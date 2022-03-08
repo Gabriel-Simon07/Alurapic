@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '../photo/photo.service';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'ap-photo-form',
@@ -15,6 +16,7 @@ export class PhotoFormComponent implements OnInit {
   file: File;
   photoForm: FormGroup;
   preview: string;
+  percentDone = 0;
 
   constructor(
     private photoService:PhotoService,
@@ -38,9 +40,18 @@ export class PhotoFormComponent implements OnInit {
     const allowComments = this.photoForm.get('allowComments').value;
 
     this.photoService.upload(description, allowComments, this.file)
-    .subscribe(() => {
-      this.alertService.success("Upload complete", true);
-      this.router.navigate(['/user', this.userService.getUserName()])
+    .subscribe((event: HttpEvent<any>) => {
+      if(event.type == HttpEventType.UploadProgress) {
+        this.percentDone = Math.round(100 * event.loaded / event.total);
+      } else if (event.type == HttpEventType.Response) {
+        this.alertService.success("Upload complete", true);
+        this.router.navigate(['/user', this.userService.getUserName()]);
+      }
+    },
+    err => {
+      console.log(err);
+      this.alertService.danger('Upload error!');
+      this.router.navigate(['/user', this.userService.getUserName()]);
     });
   }
 
