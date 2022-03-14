@@ -1,3 +1,4 @@
+import { LoadingService } from './../../shared/components/loading/loading.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -19,7 +20,7 @@ export class PhotoListComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private photoService: PhotoService
+    private photoService: PhotoService,
   ) { }
 
   ngOnInit(): void {
