@@ -1,3 +1,4 @@
+import { ShowIfLoggedModule } from './../shared/directives/show-if-logged/show-if-logged.module';
 import { MenuModule } from './../shared/components/menu/menu.module';
 import { AlertModule } from './../shared/components/alert/alert.module';
 import { NgModule } from '@angular/core';
@@ -24,7 +25,8 @@ import { LoadingModule } from '../shared/components/loading/loading.module';
       RouterModule,
       AlertModule,
       LoadingModule,
-      MenuModule
+      MenuModule,
+      ShowIfLoggedModule
   ],
     providers: [{
       provide: HTTP_INTERCEPTORS,
