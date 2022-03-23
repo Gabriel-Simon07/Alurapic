@@ -1,8 +1,9 @@
 import { ServerLog } from './server-log';
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { environment  } from '../../../environments/environment';
 
-const API = 'http://localhost:7000';
+const API = environment.serverLog;
 @Injectable({providedIn: 'root'})
 
 export class ServerLogService {
