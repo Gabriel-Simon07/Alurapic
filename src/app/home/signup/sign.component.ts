@@ -59,9 +59,11 @@ export class SignUpComponent implements OnInit{
     this.emailInput.nativeElement.focus();
   }
   signup() {
-    const newUser = this.signupForm.getRawValue() as NewUser;
-    this.signService.signup(newUser).subscribe(() => this.router.navigate([''])),
-     error => console.log(error);
-    ;
+    if(this.signupForm.valid || !this.signupForm.pending) {
+      const newUser = this.signupForm.getRawValue() as NewUser;
+      this.signService.signup(newUser)
+        .subscribe(() => this.router.navigate([''])),
+        error => console.log(error);
+    }
   }
 }
